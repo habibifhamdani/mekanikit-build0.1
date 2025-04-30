@@ -52,6 +52,7 @@ body {
 
 .navbar {
     height: 10vh;
+    min-height: 80px;
     max-height: 150px;
     width: 100%;
     background-color: rgba(255, 255, 255);
@@ -106,12 +107,22 @@ body {
 }
 
 .services_container {
-    width: 80%;
+    width: 100%;
     max-width: 1225px;
     height: auto;
     display: flex;
     flex-direction: column;
     padding: 50px 50px;
+}
+
+.services_card {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: auto; /* Allow expansion */
+    max-width: 100%;
+    height: 260px;
+    cursor: pointer;
 }
 
 .services_row {
@@ -122,10 +133,8 @@ body {
     justify-content: space-evenly;
 }
 
-.services_card {
-    width: 21.7%;
-    min-width: 200px;
-    max-width: 400px;
+.services_card_left {
+    width: 225px;
     height: 100%;
     min-height: 250px;
     max-height: 500px;
@@ -134,6 +143,8 @@ body {
     border-radius: 20px;
     background-color: #57536D;
     transition: 0.1s all ease-in-out;
+    z-index: 1;
+    flex-shrink: 0;
 }
 
 .services_card_side_button {
@@ -142,22 +153,27 @@ body {
     filter: invert();
 }
 
-.services_card:hover {
-    translate: 0 -5px;
+.services_card:not(.active) .services_card_left:hover {
+    translate: -10px 0;
 }
 
-.services_card_top {
+.services_card_left:hover .services_card_right_preview {
+    translate: 10px 0;
+}
+
+
+.services_card_left_top {
     height: 50%;
     min-height: 125px;
 }
 
-.services_card img {
+.services_card_left img {
     min-height: 35%;
     min-width: 35%;
     margin: 25% auto auto auto;
 }
 
-.services_card_bottom {
+.services_card_left_bottom {
     height: 50%;
     min-height: 125px;
     display: flex;
@@ -165,20 +181,71 @@ body {
     justify-content: flex-end;
 }
 
+.services_card_right_preview {
+    width: 225px;
+    height: 100%;
+    min-height: 250px;
+    max-height: 500px;
+    position: absolute;
+    background-color: #8987A1;
+    border-radius: 20px;
+}
+
+.services_card_right {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.2s ease-in-out;
+    padding: 0; /* <-- Important to ensure it resets smoothly */
+    background-color: #8987A1;
+    border-radius: 20px;
+    min-height: 250px;
+    max-height: 500px;
+    flex-shrink: 0;
+    translate: -40px 0;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.services_card_right_container {
+    opacity: 0;
+    width: 310px;
+    height: 100%;
+}
+
+.services_card.active .services_card_right_container {
+    opacity: 1;
+}
+
+.services_card.active .services_card_right {
+    width: 350px;
+    opacity: 1;
+    padding: 5px;
+}
+
 .about {
     width: 100%;
-    height: 70vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #252432;
+    padding: 75px 0;
+}
+
+.about p {
+    color: white;
 }
 
 .about_container {
     width: 100%;
     max-width: 1225px;
-    height: 80%;
-    background-color: salmon;
+    height: auto;
+    background-color: #252432;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .testimonials {
@@ -232,7 +299,12 @@ body {
     color: white;
     font-size: 18px;
     font-weight: 600;
+    text-decoration: none;
     transition: all 0.2s ease-in-out;
+}
+
+.contact_button p {
+    margin-bottom: 0;
 }
 
 .contact_button:hover{
@@ -241,23 +313,41 @@ body {
 
 .footer {
     width: 100%;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
     background-color: #252432;
     display: flex;
     justify-content: center;
     color: white;
-    padding-top: 50px;
+    padding: 50px 0;
 }
 
 .footer_container {
     height: 100%;
     width: 100%;
     max-width: 1100px;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_link_container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.footer_link_container a {
+    color: #fcfefe;
+    text-decoration: none;
+}
+
+.footer_link_container a:hover {
+    border-bottom: 1px solid #fcfefe;
 }
 
 .bottom {
     width: 100%;
-    height: 100px;
+    height: auto;
     display: flex;
     color: white;
     justify-content: center;
@@ -265,10 +355,11 @@ body {
 }
 
 .bottom_container {
-    height: 100%;
+    height: 100px;
     width: 100%;
     max-width: 1100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 25px 0 50px 0;
 }
